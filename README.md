@@ -45,3 +45,12 @@ UNKNOWN: Got exception while running get_output: Command '['/usr/sbin/ipmi-senso
 ./check_ipmi_simple_sensors.py -H 10.20.49.101 -U ADMIN -P ADMIN -S 'Power Supply 2' 
 UNKNOWN: Sensor Power Supply 2 is not present
 ```
+
+# Chassis status script
+
+An additional script is available to check epected chassis state
+
+```
+./check_ipmi_simple_chassis.py -H 10.20.49.101 -U ADMIN -P ADMIN -S 'System Power' -E 'on'
+OK: System Power is on
+```
