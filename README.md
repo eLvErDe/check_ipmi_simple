@@ -19,7 +19,7 @@ Optional arguments:
 
 # Examples (on a SuperMicro board)
 
-{{{
+```
 ./check_ipmi_sensor.py -H 10.20.49.101 -U ADMIN -P ADMIN -S 'Fan1'
 CRITCAL: Fan "Fan1"=0.00RPM (At or Below (<=) Lower Non-Recoverable Threshold) | Fan1=0.00RPM
 
@@ -44,4 +44,4 @@ UNKNOWN: Got exception while running get_output: Command '['/usr/sbin/ipmi-senso
 
 ./check_ipmi_sensor.py -H 10.20.49.101 -U ADMIN -P ADMIN -S 'Power Supply 2' 
 UNKNOWN: Sensor Power Supply 2 is not present
-}}}
+```
