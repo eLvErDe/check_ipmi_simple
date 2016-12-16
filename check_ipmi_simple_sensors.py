@@ -119,7 +119,7 @@ if __name__ == '__main__':
         value = status[config.sensor]['Reading'].strip("'")
         unit = status[config.sensor]['Units'].strip("'")
         stype = status[config.sensor]['Type'].strip("'")
-        if state == 'OK':
+        if state in [ 'OK', 'Device Inserted/Device Present', 'Fully Redundant', 'Device Enabled', 'Presence detected', 'Drive Presence' ]:
             message = 'OK: '
             code = 0
         else:
