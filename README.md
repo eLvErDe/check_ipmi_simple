@@ -46,6 +46,12 @@ UNKNOWN: Got exception while running get_output: Command '['/usr/sbin/ipmi-senso
 UNKNOWN: Sensor Power Supply 2 is not present
 ```
 
+# Screenshots
+
+Graphing power consumption on DELL R720 with Centreon
+![Alt screenshot](/screenshots/ipmi_power_consumption.png?raw=true)
+
+
 # Chassis status script
 
 An additional script is available to check epected chassis state
