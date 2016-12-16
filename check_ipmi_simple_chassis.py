@@ -64,8 +64,10 @@ def which(program):
 # Get shell command stdout
 @tb2unknown
 def get_output(cmd_r):
-    output = subprocess.check_output(cmd_r, stderr=open(os.devnull, 'wb'))
-    return output
+    proc = subprocess.Popen(cmd_r, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = proc.communicate()
+    assert proc.returncode == 0, "Command return exit code != 0: output: %s" % stdout+stderr
+    return stdout
 
 # Parse ipmi-chassis stdout
 @tb2unknown
