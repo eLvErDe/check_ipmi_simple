@@ -51,6 +51,9 @@ UNKNOWN: Sensor Power Supply 2 is not present
 Graphing power consumption on DELL R720 with Centreon
 ![Alt screenshot](/screenshots/ipmi_power_consumption.png?raw=true)
 
+Power supply redundancy, consumption and chassis state on ESX servers (as it's using the iDrac/ILO cards directly, it's OS-independent so it can work with appliances too)
+![Alt screenshot](/screenshots/ipmi_basic_checks.png?raw=true)
+
 
 # Chassis status script
 
