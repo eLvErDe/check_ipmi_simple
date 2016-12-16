@@ -127,7 +127,7 @@ if __name__ == '__main__':
             code = 2
         if unit != 'N/A' and isfloat(value):
             message += '%s "%s"=%s%s (%s)' % (stype, config.sensor, value, unit, state)
-            message += ' | %s=%s%s' % (config.sensor, value, unit)
+            message += ' | %s=%s%s' % (config.sensor.replace(' ', '_'), value, unit)
         else:
             message += '%s "%s"=%s' % (stype, config.sensor, state)
 
