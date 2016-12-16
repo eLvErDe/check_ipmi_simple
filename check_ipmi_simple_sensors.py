@@ -123,7 +123,7 @@ if __name__ == '__main__':
             message = 'OK: '
             code = 0
         else:
-            message = 'CRITCAL: '
+            message = 'CRITICAL: '
             code = 2
         if unit != 'N/A' and isfloat(value):
             message += '%s "%s"=%s%s (%s)' % (stype, config.sensor, value, unit, state)
