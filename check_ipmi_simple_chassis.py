@@ -109,7 +109,7 @@ if __name__ == '__main__':
     debug = config.debug
     binary = which('ipmi-chassis')
     # Give config.timeout ms to ipmi command but also limit subprocess to config.timeout + 2000ms
-    output = get_output([binary, '-h', config.host, '-u', config.user, '-p', config.password, '--session-timeout', str(config.ipmi_timeout), '--get-chassis-status'])
+    output = get_output([binary, '-h', config.host, '-u', config.user, '-p', config.password, '--session-timeout', str(config.ipmi_timeout), '-D', 'LAN_2_0', '--get-chassis-status'])
     status = parse_output(output)
     
     if not config.sensor in status:
