@@ -108,7 +108,7 @@ if __name__ == '__main__':
     debug = config.debug
     binary = which('ipmi-sensors')
     # Give config.timeout ms to ipmi command but also limit subprocess to config.timeout + 2000ms
-    output = get_output([binary, '-h', config.host, '-u', config.user, '-p', config.password, '-D', 'LAN_2_0', '--session-timeout', str(config.ipmi_timeout)])
+    output = get_output([binary, '-h', config.host, '-u', config.user, '-p', config.password, '--sdr-cache-recreate', '-D', 'LAN_2_0', '--session-timeout', str(config.ipmi_timeout)])
     status = parse_output(output)
 
     if not config.sensor in status:
