@@ -94,9 +94,9 @@ def parse_output(output):
 @tb2unknown
 def parse_args():
     argparser = NagiosArgumentParser(description="Simple IPMI chassis checking script")
-    argparser.add_argument("-H", "--host", type=str, required=True, help="Hostname or address to query (mandatory)")
-    argparser.add_argument("-U", "--user", type=str, required=True, help="IPMI username to log in")
-    argparser.add_argument("-P", "--password", type=str, required=True, help="IPMI password to log in")
+    argparser.add_argument("-H", "--host", type=str, required=False, help="Hostname or address to query (mandatory)")
+    argparser.add_argument("-U", "--user", type=str, required=False, help="IPMI username to log in")
+    argparser.add_argument("-P", "--password", type=str, required=False, help="IPMI password to log in")
     argparser.add_argument("-S", "--sensor", type=str, required=True, help="IPMI chassis to query (Run ipmi-chassis by hand to list then (first column)")
     argparser.add_argument(
         "-E", "--expected", type=str, required=True, help="IPMI chassis to expected state (Run ipmi-chassis by hand to list then (second column)"
@@ -114,22 +114,33 @@ if __name__ == "__main__":
     debug = config.debug
     binary = which("ipmi-chassis")
     # Give config.timeout ms to ipmi command but also limit subprocess to config.timeout + 2000ms
-    output = get_output(
-        [
-            binary,
-            "-h",
-            config.host,
-            "-u",
-            config.user,
-            "-p",
-            config.password,
-            "--session-timeout",
-            str(config.ipmi_timeout),
-            "-D",
-            "LAN_2_0",
-            "--get-chassis-status",
-        ]
-    )
+
+    if config.host is None:  # Run on local machine
+        output = get_output(
+            [
+                binary,
+                "--session-timeout",
+                str(config.ipmi_timeout),
+                "--get-chassis-status",
+            ]
+        )
+    else:
+        output = get_output(
+            [
+                binary,
+                "-h",
+                config.host,
+                "-u",
+                config.user,
+                "-p",
+                config.password,
+                "--session-timeout",
+                str(config.ipmi_timeout),
+                "-D",
+                "LAN_2_0",
+                "--get-chassis-status",
+            ]
+        )
     status = parse_output(output)
 
     if not config.sensor in status:

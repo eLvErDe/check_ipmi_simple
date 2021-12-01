@@ -95,9 +95,9 @@ def parse_output(output):
 @tb2unknown
 def parse_args():
     argparser = NagiosArgumentParser(description="Simple IPMI sensor checking script")
-    argparser.add_argument("-H", "--host", type=str, required=True, help="Hostname or address to query (mandatory)")
-    argparser.add_argument("-U", "--user", type=str, required=True, help="IPMI username to log in")
-    argparser.add_argument("-P", "--password", type=str, required=True, help="IPMI password to log in")
+    argparser.add_argument("-H", "--host", type=str, required=False, help="Hostname or address to query (mandatory)")
+    argparser.add_argument("-U", "--user", type=str, required=False, help="IPMI username to log in")
+    argparser.add_argument("-P", "--password", type=str, required=False, help="IPMI password to log in")
     argparser.add_argument("-S", "--sensor", type=str, required=True, help='IPMI sensor to query (Run ipmi-sensors by hand to list then (column "Name"))')
     argparser.add_argument("-T", "--ipmi-timeout", type=int, default=5000, help="IPMI timeout")
     argparser.add_argument("-D", "--debug", action="store_true", help="Debug mode: re raise Exception (do not use in production)")
@@ -112,22 +112,32 @@ if __name__ == "__main__":
     debug = config.debug
     binary = which("ipmi-sensors")
     # Give config.timeout ms to ipmi command but also limit subprocess to config.timeout + 2000ms
-    output = get_output(
-        [
-            binary,
-            "-h",
-            config.host,
-            "-u",
-            config.user,
-            "-p",
-            config.password,
-            "--sdr-cache-recreate",
-            "-D",
-            "LAN_2_0",
-            "--session-timeout",
-            str(config.ipmi_timeout),
-        ]
-    )
+    if config.host is None:  # Run on local machine
+        output = get_output(
+            [
+                binary,
+                "--sdr-cache-recreate",
+                "--session-timeout",
+                str(config.ipmi_timeout),
+            ]
+        )
+    else:
+        output = get_output(
+            [
+                binary,
+                "-h",
+                config.host,
+                "-u",
+                config.user,
+                "-p",
+                config.password,
+                "--sdr-cache-recreate",
+                "-D",
+                "LAN_2_0",
+                "--session-timeout",
+                str(config.ipmi_timeout),
+            ]
+        )
     status = parse_output(output)
 
     if not config.sensor in status:
