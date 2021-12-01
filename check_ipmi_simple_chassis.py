@@ -22,8 +22,8 @@ def tb2unknown(method):
         try:
             f_result = method(*args, **kw)
             return f_result
-        except Exception, e:
-            print 'UNKNOWN: Got exception while running %s: %s' % (method.__name__, str(e))
+        except Exception as e:
+            print('UNKNOWN: Got exception while running %s: %s' % (method.__name__, str(e)))
             if debug:
                 raise
             sys.exit(3)

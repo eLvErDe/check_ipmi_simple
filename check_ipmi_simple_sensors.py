@@ -22,8 +22,8 @@ def tb2unknown(method):
         try:
             f_result = method(*args, **kw)
             return f_result
-        except Exception, e:
-            print 'UNKNOWN: Got exception while running %s: %s' % (method.__name__, str(e))
+        except Exception as e:
+            print('UNKNOWN: Got exception while running %s: %s' % (method.__name__, str(e)))
             if debug:
                 raise
             sys.exit(3)
@@ -79,7 +79,7 @@ def parse_output(output):
         data = line.split('|')[1:]
         data = [ x.strip() for x in data ]
         name = data.pop(0)
-        status[name] = dict(zip(headers, data))
+        status[name] = dict(list(zip(headers, data)))
     return status
 
 # Arguments handler
