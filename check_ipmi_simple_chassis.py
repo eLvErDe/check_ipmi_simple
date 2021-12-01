@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import sys
 import os
@@ -71,7 +71,8 @@ def which(program):
 @tb2unknown
 def get_output(cmd_r):
     proc = subprocess.Popen(cmd_r, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = proc.communicate()
+    stdout_raw, stderr_raw = proc.communicate()
+    stdout, stderr = str(stdout_raw, "utf-8").strip(), str(stderr_raw, "utf-8").strip(),
     assert proc.returncode == 0, "Command return exit code != 0: output: %s" % stdout + stderr
     return stdout
 
