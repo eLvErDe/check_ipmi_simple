@@ -116,6 +116,8 @@ if __name__ == "__main__":
         output = get_output(
             [
                 binary,
+                "--privilege-level",
+                "USER",
                 "--sdr-cache-recreate",
                 "--session-timeout",
                 str(config.ipmi_timeout),
@@ -131,6 +133,8 @@ if __name__ == "__main__":
                 config.user,
                 "-p",
                 config.password,
+                "--privilege-level",
+                "USER",
                 "--sdr-cache-recreate",
                 "-D",
                 "LAN_2_0",

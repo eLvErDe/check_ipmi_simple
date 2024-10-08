@@ -119,6 +119,8 @@ if __name__ == "__main__":
         output = get_output(
             [
                 binary,
+                "--privilege-level",
+                "USER",
                 "--session-timeout",
                 str(config.ipmi_timeout),
                 "--get-chassis-status",
@@ -134,6 +136,8 @@ if __name__ == "__main__":
                 config.user,
                 "-p",
                 config.password,
+                "--privilege-level",
+                "USER",
                 "--session-timeout",
                 str(config.ipmi_timeout),
                 "-D",
